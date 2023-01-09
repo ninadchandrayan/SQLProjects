@@ -1,4 +1,6 @@
----Cleaning Data in SQL queries
+---Cleaning Data in SQL queries----
+
+---Skills used: Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
 
 
 --1. Standardize Date Format
