@@ -22,7 +22,7 @@ Set	SaleDateConverted = CONVERT(Date, SaleDate)
 
 --2. Populate Property Address data
 ----In this I detected NULL values and accordingly assigned value to the cell
-----To do that, I executed the Join function to join two tables:
+----To do that, I executed the Join function:
 
 --2.1
 Select a.ParcelID, a.PropertyAddress, b.ParcelID, b.PropertyAddress, ISNULL(a.PropertyAddress, b.PropertyAddress)
