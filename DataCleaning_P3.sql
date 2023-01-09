@@ -39,12 +39,12 @@ From DataCleaning_PortfolioProject.dbo.NashvilleHousing a --(assigned the value 
 Join DataCleaning_PortfolioProject.dbo.NashvilleHousing b --(assigned the value "b" to simplify the task)
 	on a.ParcelID = b.ParcelID
 	and a.[UniqueID ] <> b.[UniqueID ] ---- (the sign "<>" denote "not equal to")
-Where a.PropertyAddress is null ---(Execute the query 1.2 and once the executation is complete then re-run the query 1.1)
+Where a.PropertyAddress is null ---(Executed the query 1.2 and once the executation was complete then re-ran the query 1.1)
 
 ------------------------------------------------------------------------------
 
 --3. Breaking out Address into Individual Columns (Address, City, State)
-----For this SUBSTRING and CHARINDEX is used
+----For this query SUBSTRING and CHARINDEX is used
 
 --3.1
 Select
@@ -55,25 +55,24 @@ From DataCleaning_PortfolioProject.dbo.NashvilleHousing
 --3.2
 
 Alter Table NashvilleHousing
-Add PropertySplitAddress Nvarchar(225); ---(Execute this query one by one)
+Add PropertySplitAddress Nvarchar(225); ---(Execute)
 
 Update NashvilleHousing
-Set	PropertySplitAddress = SUBSTRING(PropertyAddress, 1, CHARINDEX(',', PropertyAddress) -1) ---(Execute this query one by one)
+Set	PropertySplitAddress = SUBSTRING(PropertyAddress, 1, CHARINDEX(',', PropertyAddress) -1) ---(Execute)
 
 Alter Table NashvilleHousing
-Add PropertySplitCity Nvarchar(225); ---(Execute this query one by one)
+Add PropertySplitCity Nvarchar(225); ---(Execute)
 
 Update NashvilleHousing
-Set	PropertySplitCity = SUBSTRING(PropertyAddress, CHARINDEX(',', PropertyAddress) + 1, LEN(PropertyAddress)) ---(Execute this query one by one)
-
+Set	PropertySplitCity = SUBSTRING(PropertyAddress, CHARINDEX(',', PropertyAddress) + 1, LEN(PropertyAddress)) ---(Execute)
 
 --3.3
 
 Select*
-From DataCleaning_PortfolioProject.dbo.NashvilleHousing --(to check if two new individual columns are updated at the end)
+From DataCleaning_PortfolioProject.dbo.NashvilleHousing --(executed this query to check if two new individual columns were updated at the end)
 
 
---3.4 updating the owner address and splitting it into separate columns using PARSENAME function... (PARSENAME function was preferred for this because its easy to use however PARSENAME look for period, hence it is supplimented by REPLACE function in this query)
+--3.4 updating the owner address and splitting it into separate columns using PARSENAME function... (PARSENAME function was preferred for this because its easy to use however PARSENAME looks for period, hence it was supplimented by REPLACE function in this query)
 
 
 Select OwnerAddress
@@ -90,20 +89,20 @@ Alter Table NashvilleHousing
 Add OwnerSplitAddress Nvarchar(225);
 
 Update NashvilleHousing
-Set	OwnerSplitAddress = PARSENAME(REPLACE(OwnerAddress, ',', ','), 3) ---(Execute this query from Alter Table one by one)
+Set	OwnerSplitAddress = PARSENAME(REPLACE(OwnerAddress, ',', ','), 3) ---(Executed this query from Alter Table)
 
 Alter Table NashvilleHousing
 Add OwnerSplitCity Nvarchar(225);
 
 Update NashvilleHousing
-Set	OwnerSplitCity = PARSENAME(REPLACE(OwnerAddress, ',', ',', 2) ---(Execute this query from Alter Table one by one)
+Set	OwnerSplitCity = PARSENAME(REPLACE(OwnerAddress, ',', ',', 2) ---(Execute this query from Alter Table)
 
 
 Alter Table NashvilleHousing
 Add OwnerSplitState Nvarchar(225); 
 
 Update NashvilleHousing
-Set	OwnerSplitState = PARSENAME(REPLACE(OwnerAddress, ',', ','), 1) ---(Execute this query from Alter Table one by one)
+Set	OwnerSplitState = PARSENAME(REPLACE(OwnerAddress, ',', ','), 1) ---(Execute this query from Alter Table)
 
 
 
@@ -116,16 +115,16 @@ order by 2 ------(Execute) .....(1)
 
 Select SoldAsVacant
 , CASE When SoldAsVacant = 'Y' then 'Yes'
-	   When SoldAsVacant = 'N' then 'No'    ---Here CASE WHEN THEN function is used to replace Y/N by Yes/No
+	   When SoldAsVacant = 'N' then 'No'    ---Here CASE WHEN THEN ELSE expressions are used to replace Y/N to Yes/No
 	   Else SoldAsVacant
 	   End
 From DataCleaning_PortfolioProject.dbo.NashvilleHousing ----(Execute).....(2)
 
---Now "Update" and "Set" functions are used to update update and refresh the column and replace the Y/N with Yes/No
+--Now "Update" and "Set" statements are used to update update and refresh the column and replace the Y/N with Yes/No
 
 update NashvilleHousing
 Set SoldAsVacant = CASE When SoldAsVacant = 'Y' then 'Yes'
-	   When SoldAsVacant = 'N' then 'No'    ---Here CASE WHEN THEN function is used to replace Y/N by Yes/No
+	   When SoldAsVacant = 'N' then 'No'    ---Here CASE WHEN THEN ELSE expressions are used to replace Y/N to Yes/No
 	   Else SoldAsVacant
 	   End -----------(Execute and recheck by executing 1st query)....(3)
 
@@ -156,7 +155,7 @@ Where row_num > 1 ----(Execute)
 Select*
 From RowNumCTE
 Where row_num > 1
-Order by PropertyAddress -----(Execute to filter the duplicates)
+Order by PropertyAddress -----(Executed to filter the duplicates)
 ----------------------------------------------------------------------------
 
 
